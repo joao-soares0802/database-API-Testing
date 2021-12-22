@@ -17,6 +17,15 @@ func ConfigRoutes(router *gin.Engine) *gin.Engine {
 			books.PUT("/update", controllers.UpdateBook)
 			books.DELETE("/:id", controllers.DeleteBook)
 		}
+		games := main.Group("games")
+		{
+			games.GET("/:id", controllers.ShowGame)
+			games.GET("/", controllers.ShowGames)
+			games.POST("", controllers.CreateGame)
+			games.PUT("/update", controllers.UpdateGames)
+			games.DELETE("/:id", controllers.DeleteGame)
+
+		}
 	}
 	return router
 }

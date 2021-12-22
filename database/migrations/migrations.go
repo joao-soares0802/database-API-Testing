@@ -10,5 +10,5 @@ type Teste struct {
 }
 
 func RunMigrations(db *gorm.DB) {
-	db.AutoMigrate(models.Books{}, Teste{})
+	db.AutoMigrate(models.Books{}, Teste{}, models.Games{})
 }
