@@ -20,7 +20,7 @@ func ShowGame(c *gin.Context) {
 	db := database.GetDatabase()
 
 	var game models.Games
-	err = db.First(&game, newid).Error
+	err = db.Table("games").First(&game, newid).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "cannot find game: " + err.Error(),
@@ -30,7 +30,7 @@ func ShowGame(c *gin.Context) {
 	c.JSON(200, game)
 }
 
-func CreateGame(c *gin.Context){
+func CreateGame(c *gin.Context) {
 	db := database.GetDatabase()
 	var game models.Games
 	err := c.ShouldBindJSON(&game)
@@ -40,7 +40,7 @@ func CreateGame(c *gin.Context){
 		})
 		return
 	}
-	err=db.Save(&game).Error
+	err = db.Save(&game).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -51,10 +51,10 @@ func CreateGame(c *gin.Context){
 	c.JSON(200, game)
 }
 
-func ShowGames(c *gin.Context){
+func ShowGames(c *gin.Context) {
 	db := database.GetDatabase()
 	var games []models.Games
-	err := db.Find(games).Error
+	err := db.Find(&games).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "cannot list games: " + err.Error(),
@@ -64,7 +64,7 @@ func ShowGames(c *gin.Context){
 	c.JSON(200, games)
 }
 
-func UpdateGames(c *gin.Context){
+func UpdateGames(c *gin.Context) {
 	db := database.GetDatabase()
 	var game models.Games
 	err := c.ShouldBindJSON(&game)
@@ -74,7 +74,7 @@ func UpdateGames(c *gin.Context){
 		})
 		return
 	}
-	err=db.Save(&game).Error
+	err = db.Save(&game).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -84,7 +84,7 @@ func UpdateGames(c *gin.Context){
 	}
 	c.JSON(200, game)
 }
-func DeleteGame(c *gin.Context){
+func DeleteGame(c *gin.Context) {
 	id := c.Param("id")
 	newid, err := strconv.Atoi(id)
 	if err != nil {

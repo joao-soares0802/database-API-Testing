@@ -12,3 +12,7 @@ type Games struct {
 	UpdatedAt time.Time  `json:"updated"`
 	DeletedAt *time.Time `gorm:"index" json:"deleted"`
 }
+
+func (Games) TableName() string {
+	return "games"
+}

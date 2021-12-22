@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func ShowTestes(c *gin.Context){
+func ShowTestes(c *gin.Context) {
 	db := database.GetDatabase()
 	var testes []migrations.Teste
 	err := db.Find(&testes).Error
@@ -19,7 +19,7 @@ func ShowTestes(c *gin.Context){
 	c.JSON(200, testes)
 }
 
-func CreateTeste(c *gin.Context){
+func CreateTeste(c *gin.Context) {
 	db := database.GetDatabase()
 	var teste migrations.Teste
 	err := c.ShouldBindJSON(&teste)
@@ -29,7 +29,7 @@ func CreateTeste(c *gin.Context){
 		})
 		return
 	}
-	err=db.Create(&teste).Error
+	err = db.Create(&teste).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{

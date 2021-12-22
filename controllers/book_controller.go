@@ -30,7 +30,7 @@ func ShowBook(c *gin.Context) {
 	c.JSON(200, book)
 }
 
-func CreateBook(c *gin.Context){
+func CreateBook(c *gin.Context) {
 	db := database.GetDatabase()
 	var book models.Books
 	err := c.ShouldBindJSON(&book)
@@ -40,7 +40,7 @@ func CreateBook(c *gin.Context){
 		})
 		return
 	}
-	err=db.Save(&book).Error
+	err = db.Save(&book).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -51,7 +51,7 @@ func CreateBook(c *gin.Context){
 	c.JSON(200, book)
 }
 
-func ShowBooks(c *gin.Context){
+func ShowBooks(c *gin.Context) {
 	db := database.GetDatabase()
 	var books []models.Books
 	err := db.Find(&books).Error
@@ -64,7 +64,7 @@ func ShowBooks(c *gin.Context){
 	c.JSON(200, books)
 }
 
-func UpdateBook(c *gin.Context){
+func UpdateBook(c *gin.Context) {
 	db := database.GetDatabase()
 	var book models.Books
 	err := c.ShouldBindJSON(&book)
@@ -74,7 +74,7 @@ func UpdateBook(c *gin.Context){
 		})
 		return
 	}
-	err=db.Save(&book).Error
+	err = db.Save(&book).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -84,7 +84,7 @@ func UpdateBook(c *gin.Context){
 	}
 	c.JSON(200, book)
 }
-func DeleteBook(c *gin.Context){
+func DeleteBook(c *gin.Context) {
 	id := c.Param("id")
 	newid, err := strconv.Atoi(id)
 	if err != nil {
